@@ -5,222 +5,216 @@
 		regulator-min-microvolt = <0x2625a0>; /*2.5 V - as required by the DACs we have*/
 		regulator-max-microvolt = <0x2625a0>;
 		regulator-always-on;
-	};
-
-	amba_pl {
+	}
+	
+	amba_pl: amba_pl {
+		#address-cells = <1>;
+		#size-cells = <1>;
 		compatible = "simple-bus";
-		ranges;
-		#address-cells = <0x01>;
-		#size-cells = <0x01>;
+		ranges ;
+		daffodil_axi_gpio_fmc_0: gpio@81230000 {
+		#gpio-cells = <2>;
+		clock-names = "s_axi_aclk";
+		clocks = <&clkc 15>;
+		compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
+		gpio-controller ;
+		reg = <0x81230000 0x10000>;
+		xlnx,all-inputs = <0x0>;
+		xlnx,all-inputs-2 = <0x0>;
+		xlnx,all-outputs = <0x0>;
+		xlnx,all-outputs-2 = <0x0>;
+		xlnx,dout-default = <0x00000000>;
+		xlnx,dout-default-2 = <0x00000000>;
+		xlnx,gpio-width = <0x20>;
+		xlnx,gpio2-width = <0x20>;
+		xlnx,interrupt-present = <0x0>;
+		xlnx,is-dual = <0x1>;
+		xlnx,tri-default = <0xFFFFFFFF>;
+		xlnx,tri-default-2 = <0xFFFFFFFF>;
+		};
+		daffodil_axi_gpio_fmc_1: gpio@81240000 {
+		#gpio-cells = <2>;
+		clock-names = "s_axi_aclk";
+		clocks = <&clkc 15>;
+		compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
+		gpio-controller ;
+		reg = <0x81240000 0x10000>;
+		xlnx,all-inputs = <0x0>;
+		xlnx,all-inputs-2 = <0x0>;
+		xlnx,all-outputs = <0x0>;
+		xlnx,all-outputs-2 = <0x0>;
+		xlnx,dout-default = <0x00000000>;
+		xlnx,dout-default-2 = <0x00000000>;
+		xlnx,gpio-width = <0x20>;
+		xlnx,gpio2-width = <0x20>;
+		xlnx,interrupt-present = <0x0>;
+		xlnx,is-dual = <0x0>;
+		xlnx,tri-default = <0xFFFFFFFF>;
+		xlnx,tri-default-2 = <0xFFFFFFFF>;
+		};
+		daffodil_axi_intc_0: interrupt-controller@81800000 {
+		#interrupt-cells = <2>;
+		clock-names = "s_axi_aclk";
+		clocks = <&clkc 15>;
+		compatible = "xlnx,axi-intc-4.1", "xlnx,xps-intc-1.00.a";
+		interrupt-controller ;
+		interrupt-names = "irq";
+		interrupt-parent = <&intc>;
+		interrupts = <0 29 4>;
+		reg = <0x81800000 0x10000>;
+		xlnx,kind-of-intr = <0x1>;
+		xlnx,num-intr-inputs = <0x1>;
+		};
+		daffodil_axi_quad_spi_0: axi_quad_spi@81e00000 {
+		bits-per-word = <16>;
+		clock-names = "ext_spi_clk", "s_axi_aclk";
+		clocks = <&clkc 15>, <&clkc 15>;
+		compatible = "xlnx,axi-quad-spi-3.2", "xlnx,xps-spi-2.00.a";
+		fifo-size = <256>;
+		interrupt-names = "ip2intc_irpt";
+		interrupt-parent = <&daffodil_axi_intc_0>;
+		interrupts = <0 0>;
+		num-cs = <0xc>;
+		reg = <0x81e00000 0x10000>;
+		xlnx,num-ss-bits = <0xc>;
+		xlnx,spi-mode = <0>;
 
-		gpio@81210000 {
-			compatible = "xlnx,axi-gpio-2.0\0xlnx,xps-gpio-1.00.a";
-			clocks = <0x01 0x0f>;
-			xlnx,gpio2-width = <0x20>;
-			xlnx,interrupt-present = <0x00>;
-			xlnx,all-inputs = <0x00>;
-			clock-names = "s_axi_aclk";
-			xlnx,dout-default = <0x00>;
-			gpio-controller;
-			xlnx,tri-default-2 = <0xffffffff>;
-			xlnx,all-outputs = <0x01>;
-			xlnx,all-inputs-2 = <0x00>;
-			xlnx,dout-default-2 = <0x00>;
-			xlnx,is-dual = <0x00>;
-			xlnx,all-outputs-2 = <0x00>;
-			xlnx,tri-default = <0xffffffff>;
-			reg = <0x81210000 0x10000>;
-			#gpio-cells = <0x02>;
-			xlnx,gpio-width = <0x08>;
+		adc@0 {
+			compatible = "ti,ads7950";
+			reg = <0x00>;
+			#io-channel-cells = <0x01>;
+			spi-max-frequency = <0x989680>;
+			vref-supply = <&regulator_daffodil>;
+		};
+		
+		adc@1 {
+			compatible = "ti,ads7950";
+			reg = <0x01>;
+			#io-channel-cells = <0x01>;
+			spi-max-frequency = <0x989680>;
+			vref-supply = <&regulator_daffodil>;
+		};
+			adc@2 {
+			compatible = "ti,ads7950";
+			reg = <0x02>;
+			#io-channel-cells = <0x01>;
+			spi-max-frequency = <0x989680>;
+			vref-supply = <&regulator_daffodil>;
+		};
+		adc@3 {
+			compatible = "ti,ads7950";
+			reg = <0x03>;
+			#io-channel-cells = <0x01>;
+			spi-max-frequency = <0x989680>;
+			vref-supply = <&regulator_daffodil>;
+		};
+		adc@4 {
+			compatible = "ti,ads7950";
+			reg = <0x04>;
+			#io-channel-cells = <0x01>;
+			spi-max-frequency = <0x989680>;
+			vref-supply = <&regulator_daffodil>;
+		};
+		adc@5 {
+			compatible = "ti,ads7950";
+			reg = <0x05>;
+			#io-channel-cells = <0x01>;
+			spi-max-frequency = <0x989680>;
+			vref-supply = <&regulator_daffodil>;
+		};
+		adc@6 {
+			compatible = "ti,ads7950";
+			reg = <0x06>;
+			#io-channel-cells = <0x01>;
+			spi-max-frequency = <0x989680>;
+			vref-supply = <&regulator_daffodil>;
+		};
+		dac@7 {
+			reg = <0x07>;
+			compatible = "adi,ad5391-5";
+			vref-supply = <&regulator_daffodil>;
+		};
+		dac@8 {
+			reg = <0x08>;
+			compatible = "adi,ad5391-5";
+			vref-supply = <&regulator_daffodil>;
+		};
+		dac@9 {
+			reg = <0x09>;
+			compatible = "adi,ad5391-5";
+			vref-supply = <&regulator_daffodil>;
+		};
+		dac@10 {
+			reg = <0x0a>;
+			compatible = "adi,ad5391-5";
+			vref-supply = <&regulator_daffodil>;
+		};
+		dac@11 {
+			reg = <0x0b>;
+			compatible = "adi,ad5391-5";
+			vref-supply = <&regulator_daffodil>;
 		};
 
-		gpio@81220000 {
-			compatible = "xlnx,axi-gpio-2.0\0xlnx,xps-gpio-1.00.a";
-			clocks = <0x01 0x0f>;
-			xlnx,gpio2-width = <0x20>;
-			xlnx,interrupt-present = <0x00>;
-			xlnx,all-inputs = <0x01>;
-			clock-names = "s_axi_aclk";
-			xlnx,dout-default = <0x00>;
-			gpio-controller;
-			xlnx,tri-default-2 = <0xffffffff>;
-			xlnx,all-outputs = <0x00>;
-			xlnx,all-inputs-2 = <0x00>;
-			xlnx,dout-default-2 = <0x00>;
-			xlnx,is-dual = <0x00>;
-			xlnx,all-outputs-2 = <0x00>;
-			xlnx,tri-default = <0xffffffff>;
-			reg = <0x81220000 0x10000>;
-			#gpio-cells = <0x02>;
-			xlnx,gpio-width = <0x03>;
 		};
-
-		gpio@81230000 {
-			compatible = "xlnx,axi-gpio-2.0\0xlnx,xps-gpio-1.00.a";
-			clocks = <0x01 0x0f>;
-			xlnx,gpio2-width = <0x20>;
-			xlnx,interrupt-present = <0x00>;
-			xlnx,all-inputs = <0x00>;
-			clock-names = "s_axi_aclk";
-			xlnx,dout-default = <0x00>;
-			gpio-controller;
-			xlnx,tri-default-2 = <0xffffffff>;
-			xlnx,all-outputs = <0x00>;
-			xlnx,all-inputs-2 = <0x00>;
-			xlnx,dout-default-2 = <0x00>;
-			xlnx,is-dual = <0x01>;
-			xlnx,all-outputs-2 = <0x00>;
-			xlnx,tri-default = <0xffffffff>;
-			reg = <0x81230000 0x10000>;
-			#gpio-cells = <0x02>;
-			xlnx,gpio-width = <0x20>;
+		onboard_gpio_axi_gpio_0: gpio@81200000 {
+		#gpio-cells = <2>;
+		clock-names = "s_axi_aclk";
+		clocks = <&clkc 15>;
+		compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
+		gpio-controller ;
+		reg = <0x81200000 0x10000>;
+		xlnx,all-inputs = <0x1>;
+		xlnx,all-inputs-2 = <0x0>;
+		xlnx,all-outputs = <0x0>;
+		xlnx,all-outputs-2 = <0x0>;
+		xlnx,dout-default = <0x00000000>;
+		xlnx,dout-default-2 = <0x00000000>;
+		xlnx,gpio-width = <0x8>;
+		xlnx,gpio2-width = <0x20>;
+		xlnx,interrupt-present = <0x0>;
+		xlnx,is-dual = <0x0>;
+		xlnx,tri-default = <0xFFFFFFFF>;
+		xlnx,tri-default-2 = <0xFFFFFFFF>;
 		};
-
-		axi_quad_spi@81e00000 {
-			compatible = "xlnx,axi-quad-spi-3.2\0xlnx,xps-spi-2.00.a";
-			xlnx,spi-mode = <0x00>;
-			clocks = <0x01 0x0f 0x01 0x0f>;
-			bits-per-word = <0x08>;
-			clock-names = "ext_spi_clk\0s_axi_aclk";
-			fifo-size = <0x100>;
-			xlnx,num-ss-bits = <0x0c>;
-			interrupt-parent = <0x13>;
-			interrupts = <0x00 0x00>;
-			reg = <0x81e00000 0x10000>;
-			interrupt-names = "ip2intc_irpt";
-			num-cs = <0x0c>;
-
-			adc@0 {
-				compatible = "ti,ads7950";
-				reg = <0x00>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
-		    };
-			
-		    adc@1 {
-				compatible = "ti,ads7950";
-				reg = <0x01>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
-		    };
-				adc@2 {
-				compatible = "ti,ads7950";
-				reg = <0x02>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
-		    };
-		    adc@3 {
-				compatible = "ti,ads7950";
-				reg = <0x03>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
-		    };
-		    adc@4 {
-				compatible = "ti,ads7950";
-				reg = <0x04>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
-		    };
-		    adc@5 {
-				compatible = "ti,ads7950";
-				reg = <0x05>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
-		    };
-		    adc@6 {
-				compatible = "ti,ads7950";
-				reg = <0x06>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
-		    };
-			dac@7 {
-				reg = <0x07>;
-				compatible = "adi,ad5391-5";
-				vref-supply = <&regulator_daffodil>;
-			};
-			dac@8 {
-				reg = <0x08>;
-				compatible = "adi,ad5391-5";
-				vref-supply = <&regulator_daffodil>;
-			};
-			dac@9 {
-				reg = <0x09>;
-				compatible = "adi,ad5391-5";
-				vref-supply = <&regulator_daffodil>;
-			};
-			dac@10 {
-				reg = <0x0a>;
-				compatible = "adi,ad5391-5";
-				vref-supply = <&regulator_daffodil>;
-			};
-			dac@11 {
-				reg = <0x0b>;
-				compatible = "adi,ad5391-5";
-				vref-supply = <&regulator_daffodil>;
-			};
+		onboard_gpio_axi_gpio_1: gpio@81210000 {
+		#gpio-cells = <2>;
+		clock-names = "s_axi_aclk";
+		clocks = <&clkc 15>;
+		compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
+		gpio-controller ;
+		reg = <0x81210000 0x10000>;
+		xlnx,all-inputs = <0x0>;
+		xlnx,all-inputs-2 = <0x0>;
+		xlnx,all-outputs = <0x1>;
+		xlnx,all-outputs-2 = <0x0>;
+		xlnx,dout-default = <0x00000000>;
+		xlnx,dout-default-2 = <0x00000000>;
+		xlnx,gpio-width = <0x8>;
+		xlnx,gpio2-width = <0x20>;
+		xlnx,interrupt-present = <0x0>;
+		xlnx,is-dual = <0x0>;
+		xlnx,tri-default = <0xFFFFFFFF>;
+		xlnx,tri-default-2 = <0xFFFFFFFF>;
 		};
-
-		interrupt-controller@81800000 {
-			compatible = "xlnx,axi-intc-4.1\0xlnx,xps-intc-1.00.a";
-			clocks = <0x01 0x0f>;
-			xlnx,kind-of-intr = <0x01>;
-			clock-names = "s_axi_aclk";
-			#interrupt-cells = <0x02>;
-			interrupt-parent = <&intc>;
-			interrupts = <0x00 0x1d 0x04>;
-			reg = <0x81800000 0x10000>;
-			xlnx,num-intr-inputs = <0x01>;
-			interrupt-names = "irq";
-			interrupt-controller;
-		};
-
-		gpio@81200000 {
-			compatible = "xlnx,axi-gpio-2.0\0xlnx,xps-gpio-1.00.a";
-			clocks = <0x01 0x0f>;
-			xlnx,gpio2-width = <0x20>;
-			xlnx,interrupt-present = <0x00>;
-			xlnx,all-inputs = <0x01>;
-			clock-names = "s_axi_aclk";
-			xlnx,dout-default = <0x00>;
-			gpio-controller;
-			xlnx,tri-default-2 = <0xffffffff>;
-			xlnx,all-outputs = <0x00>;
-			xlnx,all-inputs-2 = <0x00>;
-			xlnx,dout-default-2 = <0x00>;
-			xlnx,is-dual = <0x00>;
-			xlnx,all-outputs-2 = <0x00>;
-			xlnx,tri-default = <0xffffffff>;
-			reg = <0x81200000 0x10000>;
-			#gpio-cells = <0x02>;
-			xlnx,gpio-width = <0x08>;
-		};
-
-		gpio@81240000 {
-			compatible = "xlnx,axi-gpio-2.0\0xlnx,xps-gpio-1.00.a";
-			clocks = <0x01 0x0f>;
-			xlnx,gpio2-width = <0x20>;
-			xlnx,interrupt-present = <0x00>;
-			xlnx,all-inputs = <0x00>;
-			clock-names = "s_axi_aclk";
-			xlnx,dout-default = <0x00>;
-			gpio-controller;
-			xlnx,tri-default-2 = <0xffffffff>;
-			xlnx,all-outputs = <0x00>;
-			xlnx,all-inputs-2 = <0x00>;
-			xlnx,dout-default-2 = <0x00>;
-			xlnx,is-dual = <0x00>;
-			xlnx,all-outputs-2 = <0x00>;
-			xlnx,tri-default = <0xffffffff>;
-			reg = <0x81240000 0x10000>;
-			#gpio-cells = <0x02>;
-			xlnx,gpio-width = <0x20>;
+		onboard_gpio_axi_gpio_2: gpio@81220000 {
+		#gpio-cells = <2>;
+		clock-names = "s_axi_aclk";
+		clocks = <&clkc 15>;
+		compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
+		gpio-controller ;
+		reg = <0x81220000 0x10000>;
+		xlnx,all-inputs = <0x1>;
+		xlnx,all-inputs-2 = <0x0>;
+		xlnx,all-outputs = <0x0>;
+		xlnx,all-outputs-2 = <0x0>;
+		xlnx,dout-default = <0x00000000>;
+		xlnx,dout-default-2 = <0x00000000>;
+		xlnx,gpio-width = <0x3>;
+		xlnx,gpio2-width = <0x20>;
+		xlnx,interrupt-present = <0x0>;
+		xlnx,is-dual = <0x0>;
+		xlnx,tri-default = <0xFFFFFFFF>;
+		xlnx,tri-default-2 = <0xFFFFFFFF>;
 		};
 	};
 };
