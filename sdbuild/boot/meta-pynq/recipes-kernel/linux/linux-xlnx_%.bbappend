@@ -1,3 +1,4 @@
+SRC_URI += " file://daffodil.cfg"
 SRC_URI += " file://pynq.cfg"
 SRC_URI += " file://greengrass.cfg"
 SRC_URI += " file://wifi.cfg"
