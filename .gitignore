@@ -1,3 +1,9 @@
+# MISC
+###################
+sdbuild/tools/*
+sdbuild/prebuilt/*
+
+
 # Compiled Sources
 ###################
 *.o
