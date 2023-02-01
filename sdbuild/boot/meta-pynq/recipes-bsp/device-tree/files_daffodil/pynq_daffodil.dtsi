@@ -15,6 +15,7 @@
 		daffodil_axi_gpio_fmc_0: gpio@81230000 {
 			#gpio-cells = <2>;
 			clock-names = "s_axi_aclk";
+			status = "okay";
 			clocks = <&clkc 15>;
 			compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
 			gpio-controller ;
@@ -35,6 +36,7 @@
 		daffodil_axi_gpio_fmc_1: gpio@81240000 {
 			#gpio-cells = <2>;
 			clock-names = "s_axi_aclk";
+			status = "okay";
 			clocks = <&clkc 15>;
 			compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
 			gpio-controller ;
