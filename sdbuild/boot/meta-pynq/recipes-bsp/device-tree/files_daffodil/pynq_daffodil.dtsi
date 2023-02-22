@@ -2,7 +2,7 @@
 	regulator_daffodil: regulator-vref {
 		compatible = "regulator-fixed";
 		regulator-name = "vref";
-		regulator-min-microvolt = <0x2625a0>; /*2.5 V - as required by the DACs we have*/
+		regulator-min-microvolt = <0x2625a0>; /*2.5 V - as required by the ADCs we have*/
 		regulator-max-microvolt = <0x2625a0>;
 		regulator-always-on;
 	};
@@ -68,6 +68,8 @@
 			xlnx,num-intr-inputs = <0x1>;
 		};
 		daffodil_axi_quad_spi_0: axi_quad_spi@81e00000 {
+			#address-cells = <0x1>; 
+			#size-cells = <0x0>;
 			bits-per-word = <16>;
 			clock-names = "ext_spi_clk", "s_axi_aclk";
 			clocks = <&clkc 15>, <&clkc 15>;
@@ -80,40 +82,26 @@
 			reg = <0x81e00000 0x10000>;
 			xlnx,num-ss-bits = <0xc>;
 			xlnx,spi-mode = <0>;
-			adc@0 {
-				compatible = "ti,ads7950";
+
+			dac@0 {
 				reg = <0x00>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
+				compatible = "adi,ad5391-5";
 			};
-			adc@1 {
-				compatible = "ti,ads7950";
+			dac@1 {
 				reg = <0x01>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
+				compatible = "adi,ad5391-5";
 			};
-			adc@2 {
-				compatible = "ti,ads7950";
+			dac@2 {
 				reg = <0x02>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
+				compatible = "adi,ad5391-5";
 			};
-			adc@3 {
-				compatible = "ti,ads7950";
+			dac@3 {
 				reg = <0x03>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
+				compatible = "adi,ad5391-5";
 			};
-			adc@4 {
-				compatible = "ti,ads7950";
+			dac@4 {
 				reg = <0x04>;
-				#io-channel-cells = <0x01>;
-				spi-max-frequency = <0x989680>;
-				vref-supply = <&regulator_daffodil>;
+				compatible = "adi,ad5391-5";
 			};
 			adc@5 {
 				compatible = "ti,ads7950";
@@ -129,30 +117,40 @@
 				spi-max-frequency = <0x989680>;
 				vref-supply = <&regulator_daffodil>;
 			};
-			dac@7 {
+			adc@7 {
+				compatible = "ti,ads7950";
 				reg = <0x07>;
-				compatible = "adi,ad5391-5";
-				//vref-supply = <&regulator_daffodil>;
+				#io-channel-cells = <0x01>;
+				spi-max-frequency = <0x989680>;
+				vref-supply = <&regulator_daffodil>;
 			};
-			dac@8 {
+			adc@8 {
+				compatible = "ti,ads7950";
 				reg = <0x08>;
-				compatible = "adi,ad5391-5";
-				//vref-supply = <&regulator_daffodil>;
+				#io-channel-cells = <0x01>;
+				spi-max-frequency = <0x989680>;
+				vref-supply = <&regulator_daffodil>;
 			};
-			dac@9 {
+			adc@9 {
+				compatible = "ti,ads7950";
 				reg = <0x09>;
-				compatible = "adi,ad5391-5";
-				//vref-supply = <&regulator_daffodil>;
+				#io-channel-cells = <0x01>;
+				spi-max-frequency = <0x989680>;
+				vref-supply = <&regulator_daffodil>;
 			};
-			dac@10 {
+			adc@10 {
+				compatible = "ti,ads7950";
 				reg = <0x0a>;
-				compatible = "adi,ad5391-5";
-				//vref-supply = <&regulator_daffodil>;
+				#io-channel-cells = <0x01>;
+				spi-max-frequency = <0x989680>;
+				vref-supply = <&regulator_daffodil>;
 			};
-			dac@11 {
+			adc@11 {
+				compatible = "ti,ads7950";
 				reg = <0x0b>;
-				compatible = "adi,ad5391-5";
-				//vref-supply = <&regulator_daffodil>;
+				#io-channel-cells = <0x01>;
+				spi-max-frequency = <0x989680>;
+				vref-supply = <&regulator_daffodil>;
 			};
 		};
 		onboard_gpio_axi_gpio_0: gpio@81200000 {
