@@ -6,5 +6,7 @@ SRC_URI += " file://usb_serial.cfg"
 SRC_URI += " file://0001-irps5401.patch"
 SRC_URI += " file://docker.cfg"
 SRC_URI += " file://0001-Change-bMaxBurst-and-qlen-to-the-highest-number.patch"
+SRC_URI += " file://0002-adding-spi-xilinx-legacy-from-Kernel-v5.4.patch"
+SRC_URI += " file://0003-adding-ti-ads-7950-legacy-from-Kernel-v5.4.patch"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
